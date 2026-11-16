@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>د نبوي سيرت امتحان</title>
+<style>
+:root{--card:#fff;--text:#2a2150;--muted:#7a72a8;--soft:#f1edff;--p1:#6c4fe0;--p2:#a77ff0;--ok:#19b37a;--okb:#e3f9f0;--bad:#f0483e;--badb:#fde8e6;--org:#ff9a3c;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--card:#272047;--text:#f1edff;--muted:#b4abe0;--soft:#352c5e;--okb:#14473a;--badb:#58232a}}
+:root[data-theme="dark"]{--card:#272047;--text:#f1edff;--muted:#b4abe0;--soft:#352c5e;--okb:#14473a;--badb:#58232a}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Noto Naskh Arabic","Segoe UI",Tahoma,Arial,sans-serif;background:linear-gradient(160deg,#5b3fd1,#a77ff0);background-attachment:fixed;color:var(--text);min-height:100vh;display:flex;justify-content:center;padding:16px}
+.app{width:100%;max-width:520px}
+.card{background:var(--card);border-radius:26px;padding:20px;box-shadow:0 12px 35px rgba(40,20,110,.3);margin-bottom:14px}
+.hero{background:linear-gradient(135deg,#6c4fe0,#8d63ee);color:#fff;text-align:center;padding:28px 20px}
+.hero h1{margin:8px 0;font-size:26px}.hero p{margin:0;opacity:.9}
+.big{font-size:56px}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px}
+.tile{border:0;border-radius:20px;padding:18px 8px;color:#fff;font:inherit;font-size:18px;font-weight:700;cursor:pointer;box-shadow:0 6px 0 rgba(0,0,0,.15);transition:transform .1s}
+.tile:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.tile small{display:block;font-weight:400;font-size:13px;opacity:.9}
+.t1{background:linear-gradient(135deg,#7a55ee,#5b3fd1)}.t2{background:linear-gradient(135deg,#25c58c,#13a074)}
+.t3{background:linear-gradient(135deg,#ffb04a,#ff8a2b)}.t4{background:linear-gradient(135deg,#ff6a5e,#e63d6a)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;color:#fff}
+.chip{background:rgba(255,255,255,.22);padding:6px 14px;border-radius:99px;font-weight:700}
+.bar{height:10px;background:var(--soft);border-radius:9px;overflow:hidden;margin-bottom:16px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--org),#ffd166);border-radius:9px;transition:width .4s}
+.q{font-size:21px;font-weight:700;line-height:1.8;margin:0 0 16px}
+.opt{display:flex;align-items:center;gap:10px;width:100%;text-align:start;border:2px solid var(--soft);background:var(--soft);color:var(--text);border-radius:16px;padding:13px 14px;margin-bottom:10px;font:inherit;font-size:18px;cursor:pointer;transition:transform .12s,background .2s}
+.opt:not(:disabled):hover{transform:translateX(-4px);border-color:var(--p2)}
+.opt b{flex:none;width:32px;height:32px;border-radius:50%;background:var(--p1);color:#fff;display:grid;place-items:center;font-size:15px}
+.opt.ok{background:var(--okb);border-color:var(--ok);animation:pop .5s}.opt.ok b{background:var(--ok)}
+.opt.bad{background:var(--badb);border-color:var(--bad);animation:shake .4s}.opt.bad b{background:var(--bad)}
+.opt:disabled{cursor:default}
+.msg{min-height:30px;text-align:center;font-size:19px;font-weight:700;margin:6px 0}
+.next{display:none;width:100%;border:0;border-radius:18px;padding:15px;font:inherit;font-size:19px;font-weight:700;color:#fff;background:linear-gradient(135deg,#7a55ee,#5b3fd1);cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.18)}
+.res{text-align:center}.res .big{font-size:72px}.score{font-size:46px;font-weight:800;color:var(--p1);margin:4px 0}
+.hide{display:none}
+@keyframes pop{50%{transform:scale(1.04)}}
+@keyframes shake{25%{transform:translateX(7px)}75%{transform:translateX(-7px)}}
+.fx{position:fixed;top:-40px;font-size:26px;pointer-events:none;z-index:9;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.8}}
+
+.bg{position:fixed;inset:0;overflow:hidden;z-index:-1;pointer-events:none}
+.bg i{position:absolute;border-radius:50%;background:rgba(255,255,255,.12);animation:flt 14s ease-in-out infinite alternate}
+.bg i:nth-child(1){width:220px;height:220px;top:-60px;right:-50px}
+.bg i:nth-child(2){width:120px;height:120px;top:30%;left:-30px;animation-delay:-3s}
+.bg i:nth-child(3){width:180px;height:180px;bottom:8%;right:-40px;animation-delay:-6s;background:rgba(255,200,90,.16)}
+.bg i:nth-child(4){width:70px;height:70px;top:55%;right:25%;animation-delay:-9s}
+.bg i:nth-child(5){width:150px;height:150px;bottom:-40px;left:10%;animation-delay:-2s;background:rgba(80,230,180,.14)}
+.bg i:nth-child(6){width:50px;height:50px;top:12%;left:30%;animation-delay:-5s}
+@keyframes flt{to{transform:translate(-25px,40px) scale(1.15)}}
+body{background:linear-gradient(160deg,#4b2fc4,#7c4de6 50%,#c28bf5);background-attachment:fixed}
+.card{animation:in .5s both}
+@keyframes in{from{opacity:0;transform:translateY(18px)}}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#5b3fd1,#9a6bf2 60%,#ffb04a 160%)}
+.hero .moon{position:absolute;top:10px;left:16px;font-size:34px;opacity:.9;animation:flt 6s ease-in-out infinite alternate}
+.hero .big{animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.hero h1{font-size:28px;text-shadow:0 3px 10px rgba(0,0,0,.25)}
+.stats{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.t5{background:linear-gradient(135deg,#ffcc4a,#ff7a2b 60%,#e63d6a)}
+.tile{box-shadow:0 7px 0 rgba(0,0,0,.18)}.tile:hover{transform:translateY(-3px)}
+.me{text-align:center;position:relative;overflow:hidden}
+.me:before{content:"";position:absolute;top:0;left:0;right:0;height:110px;background:linear-gradient(135deg,#5b3fd1,#a77ff0 60%,#ffb04a)}
+.meh{position:relative;color:#fff;font-weight:700;font-size:17px;margin-bottom:12px}
+.ph{position:relative;width:132px;height:132px;margin:0 auto 10px;border-radius:50%;padding:5px;background:conic-gradient(#ffb04a,#ff6a5e,#a77ff0,#25c58c,#ffb04a);box-shadow:0 8px 22px rgba(60,30,140,.4)}
+.ph img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:top;border:4px solid var(--card);display:block}
+.me h3{margin:4px 0 12px;font-size:26px;color:var(--p1)}
+.me ul{list-style:none;padding:0;margin:0 0 14px;text-align:start}
+.me li{background:var(--soft);border-radius:14px;padding:10px 14px;margin-bottom:8px;display:flex;flex-direction:column;gap:3px}
+.me li span{font-size:13px;color:var(--muted)}.me li b{font-size:16px;line-height:1.7}
+.ct{display:grid;gap:10px}
+.ct a{display:block;text-decoration:none;color:#fff;border-radius:16px;padding:13px;font-weight:700;font-size:17px;font-family:Segoe UI,Arial,sans-serif;word-break:break-all;box-shadow:0 5px 0 rgba(0,0,0,.16)}
+.c1{background:linear-gradient(135deg,#25c58c,#13a074)}.c2{background:linear-gradient(135deg,#ff6a5e,#e63d6a)}
+
+.inp{width:100%;border:2px solid var(--soft);background:var(--soft);color:var(--text);border-radius:16px;padding:14px;font:inherit;font-size:19px;margin-bottom:8px;outline:0}
+.inp:focus{border-color:var(--p2)}
+.lb{display:block;font-weight:700;margin-bottom:8px}
+.err{color:var(--bad);min-height:24px;font-weight:700}
+.app{padding-bottom:96px}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:center;gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:var(--card);border-radius:24px 24px 0 0;box-shadow:0 -8px 28px rgba(40,20,110,.3)}
+.nav button{flex:1;max-width:120px;border:0;background:none;color:var(--muted);font:inherit;font-size:13px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:16px;cursor:pointer;position:relative}
+.nav button span{font-size:22px}
+.nav button.on{background:var(--soft);color:var(--p1)}
+.nav em{position:absolute;top:0;right:18px;background:var(--bad);color:#fff;font-style:normal;font-size:11px;min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center;padding:0 4px}
+.ibtn{border:0;color:#fff;font:inherit;cursor:pointer}
+.qrow{display:flex;gap:10px;align-items:flex-start}.qrow .q{flex:1}
+.star{flex:none;border:0;background:var(--soft);border-radius:50%;width:46px;height:46px;font-size:24px;cursor:pointer;transition:transform .15s}
+.star:active{transform:scale(1.25)}
+.fv{background:var(--soft);border-radius:18px;padding:14px;margin-bottom:12px}
+.fv p{margin:0 0 8px;font-weight:700;line-height:1.8}
+.fa{color:var(--ok);font-weight:700;margin-bottom:8px}
+.rm{border:0;background:var(--badb);color:var(--bad);border-radius:12px;padding:8px 14px;font:inherit;font-weight:700;cursor:pointer}
+.hi{font-size:19px;font-weight:700;margin:8px 0 0}
+</style>
+</head>
+<body>
+<div class="bg"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="app">
+
+  <div id="login" class="hide">
+    <div class="card hero"><div class="moon">🌙</div><div class="big">🕌</div><h1>د نبوي سيرت امتحان</h1><p>د پيل لپاره خپل نوم ولیکئ</p></div>
+    <div class="card">
+      <label class="lb" for="uname">👤 ستاسو نوم</label>
+      <input id="uname" class="inp" maxlength="30" placeholder="خپل نوم دلته ولیکئ" autocomplete="off">
+      <div class="err" id="lerr"></div>
+      <button class="tile t2" style="width:100%" id="loginBtn">🔑 ننوتل</button>
+    </div>
+  </div>
+
+  <div id="home" class="hide">
+    <div class="card hero"><div class="moon">🌙</div><div class="big">🕌</div><h1>د نبوي سيرت امتحان</h1>
+      <p class="hi" id="hi"></p>
+      <div class="stats"><span class="chip">📚 <b id="qn"></b> پوښتنې</span><span class="chip">🏅 غوره: <b id="best">—</b></span></div></div>
+    <div class="card"><p style="margin:0 0 10px;font-weight:700">د پوښتنو شمېر وټاکه:</p>
+      <div class="tiles">
+        <button class="tile t1" data-n="10">۱۰ پوښتنې<small>چټک</small></button>
+        <button class="tile t2" data-n="25">۲۵ پوښتنې<small>منځنی</small></button>
+        <button class="tile t3" data-n="50">۵۰ پوښتنې<small>ستونزمن</small></button>
+        <button class="tile t4" data-n="100">۱۰۰ پوښتنې<small>قهرمان</small></button>
+        <button class="tile t5" style="grid-column:1/-1" data-n="999">🏆 ټولې پوښتنې<small id="allN"></small></button>
+      </div></div>
+  </div>
+
+  <div id="game" class="hide">
+    <div class="top"><button class="chip ibtn" id="exit">✖ وتل</button><span class="chip" id="cnt"></span><span class="chip">💎 <span id="sc">0</span></span></div>
+    <div class="card">
+      <div class="bar"><i id="pb"></i></div>
+      <div class="qrow"><p class="q" id="q"></p><button class="star" id="star" aria-label="خوښه">☆</button></div>
+      <div id="opts"></div>
+      <div class="msg" id="msg"></div>
+      <button class="next" id="next">بله پوښتنه ←</button>
+    </div>
+  </div>
+
+  <div id="end" class="hide">
+    <div class="card res"><div class="big" id="em"></div><h2 id="tt"></h2>
+      <div class="score" id="fs"></div><p id="det" style="color:var(--muted)"></p>
+      <button class="tile t1" style="width:100%" id="again">🏠 کور ته</button></div>
+  </div>
+
+  <div id="fav" class="hide">
+    <div class="card"><h2 style="margin:0 0 12px">⭐ خوښې پوښتنې</h2>
+      <p id="favEmpty" style="color:var(--muted);line-height:1.9">لا تر اوسه خوښه پوښتنه نشته. د امتحان پر مهال د پوښتنې ښي خوا ته د ستوري تڼۍ کېکاږئ.</p>
+      <div id="favlist"></div>
+      <button class="tile t3" style="width:100%" id="favStart">🎯 له خوښو پوښتنو امتحان ورکړه</button></div>
+  </div>
+
+  <div id="about" class="hide">
+    <div class="card me">
+      <div class="meh">✨ د جوړونکي پېژندنه ✨</div>
+      <div class="ph"><img src="data:image/jpeg;base64,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" alt="عبيدالله"></div>
+      <h3>عبيدالله</h3>
+      <ul>
+        <li><span>👤 د پلار نوم</span><b>شير علم</b></li>
+        <li><span>📍 اوسېدنه</span><b>د غزني ولايت</b></li>
+        <li><span>🎓 زده کړه</span><b>د ننګرهار پوهنتون د اقتصاد پوهنځي، د دريم ټولګي د پنځم سمستر محصل</b></li>
+      </ul>
+      <div class="ct">
+        <a class="c1" href="tel:+93775674626" dir="ltr">📞 0775674626</a>
+        <a class="c2" href="mailto:obidullahobid35@gmail.com" dir="ltr">✉️ obidullahobid35@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav id="nav" class="nav hide">
+  <button data-v="home"><span>🏠</span>کور</button>
+  <button data-v="fav"><span>⭐</span>خوښې<em id="fcount">۰</em></button>
+  <button data-v="about"><span>👤</span>جوړونکی</button>
+  <button id="logout"><span>🚪</span>وتل</button>
+</nav>
+
+<script>
+const RAW=`د محمد ص زېږېدنه په کوم ښار کې وشوه؟|مکه|مدينه|طايف|جده
+د محمد ص د پلار نوم څه و؟|عبدالله|ابوطالب|عبدالمطلب|ابولهب
+د محمد ص د مور نوم څه و؟|آمنه|خديجه|فاطمه|حليمه
+د محمد ص د نيکه نوم څه و؟|عبدالمطلب|هاشم|ابوطالب|عباس
+محمد ص په کوم کال زېږېدلی دی؟|د فيل په کال|د هجرت په کال|د بدر په کال|د حنين په کال
+د محمد ص زېږېدنه په کومه مياشت کې وشوه؟|ربيع الاول|رمضان|محرم|رجب
+د محمد ص زېږېدنه په کومه ورځ وشوه؟|دوشنبه|جمعه|شنبه|يکشنبه
+د محمد ص شيدې ورکوونکې کومه ښځه وه؟|حليمه سعديه|آمنه|ام ايمن|خديجه
+مور د محمد ص په څو کلنۍ وفات شوه؟|شپږ کلنۍ|دوه کلنۍ|لس کلنۍ|څلور کلنۍ
+نيکه عبدالمطلب د محمد ص په څو کلنۍ وفات شو؟|اته کلنۍ|شپږ کلنۍ|دولس کلنۍ|لس کلنۍ
+وروسته له نيکه د محمد ص سرپرستي چا وکړه؟|ابوطالب|عباس|حمزه|ابوبکر
+محمد ص په څو کلنۍ له ابوطالب سره شام ته سفر وکړ؟|دولس کلنۍ|شپاړس کلنۍ|شپږ کلنۍ|شل کلنۍ
+په شام سفر کې کوم راهب محمد ص وپيژانده؟|بحيرا|ورقه|زيد|سلمان
+محمد ص په ماشومتوب کې څه چرول؟|پسونه|اوښان|غواوې|اسونه
+مشرکين د نبوت دمخه محمد ص ته کوم لقب ورکړی و؟|امين|فاروق|صديق|غني
+محمد ص د کوم پيمان په جوړېدو کې ګډون وکړ چې د مظلومانو د مرستې لپاره و؟|حلف الفضول|بيعت رضوان|صلح حديبيه|ميثاق مدينه
+د حجر اسود په ايښودلو کې اختلاف محمد ص څنګه حل کړ؟|په يوه څادر کې يې کېښود|په جګړه|په قرعه|پرېښود
+محمد ص د خديجې رض سره په څو کلنۍ واده وکړ؟|پنځه ويشت کلنۍ|شل کلنۍ|دېرش کلنۍ|څلوېښت کلنۍ
+خديجه رض څه کار کاوه؟|سوداګره وه|ښوونکې وه|کروندګره وه|طبيبه وه
+لومړۍ وحي په کوم غار کې نازله شوه؟|حراء|ثور|احد|ارقم
+لومړی نازل شوی آيت له کوم ځايه و؟|اقرأ باسم ربک|يا ايها المدثر|الحمد لله|قل هو الله احد
+وحي راوړونکی ملايک څوک و؟|جبرائيل|ميکائيل|اسرافيل|عزرائيل
+محمد ص په څو کلنۍ نبوت ترلاسه کړ؟|څلوېښت کلنۍ|دېرش کلنۍ|پنځوس کلنۍ|شپېته کلنۍ
+د خديجې رض د تره زوی چې محمد ص ته يې زېری ورکړ څوک و؟|ورقه بن نوفل|بحيرا|زيد|اميه
+لومړۍ مسلمانه ښځه څوک وه؟|خديجه|عايشه|فاطمه|ام سلمه
+له ماشومانو څخه لومړی مسلمان څوک شو؟|علي بن ابي طالب|ابن عباس|انس|حسن
+له بالغو نارينه وو څخه لومړی مسلمان څوک شو؟|ابوبکر صديق|عمر|عثمان|بلال
+د محمد ص ځوی ګڼل شوی ازاد شوی غلام څوک و؟|زيد بن حارثه|بلال|عمار|ياسر
+په اسلام کې لومړۍ شهيده کومه ښځه وه؟|سميه|خديجه|فاطمه|ام سلمه
+بلال حبشي د چا غلام و؟|اميه بن خلف|ابوجهل|ابولهب|عتبه
+پټه دعوت څو کاله وغځېد؟|درې کاله|يو کال|شپږ کاله|لس کاله
+محمد ص د ښکاره دعوت لپاره په کومه غونډۍ ودرېد؟|صفا|احد|نور|عرفات
+د محمد ص کوم تره ډېره دښمني کوله؟|ابولهب|حمزه|عباس|ابوطالب
+د ابولهب په هکله کوم سورت نازل شو؟|المسد|الکوثر|الفيل|قريش
+د حمزه بن عبدالمطلب لقب څه و؟|اسد الله|سيف الله|فاروق|امين الامة
+د عمر بن خطاب رض لقب څه و؟|فاروق|صديق|ذوالنورين|سيف الله
+لومړی هجرت کوم هېواد ته وشو؟|حبشه|شام|مصر|يمن
+د حبشې پاچا څه نوم درلود؟|نجاشي|هرقل|کسرى|مقوقس
+په حبشه کې د مهاجرو مشر څوک و؟|جعفر بن ابي طالب|علي|عمر|حمزه
+د شعب ابي طالب محاصره څو کاله وه؟|درې کاله|يو کال|شپږ کاله|لس کاله
+د عام الحزن په کال د ابوطالب سره بل څوک وفات شو؟|خديجه رض|حمزه|عمر|فاطمه
+محمد ص دعوت لپاره کوم ښار ته لاړ او ډبرې ورباندې وشوې؟|طايف|مدينه|حبشه|شام
+په اسراء کې له مسجد الحرام څخه کوم مسجد ته بوتلل شو؟|مسجد اقصى|مسجد قبا|مسجد نبوي|مسجد الحرام
+په معراج کې په ورځ کې څو لمونځونه فرض شول؟|پنځه|درې|شپږ|اوه
+د مدينې پخوانی نوم څه و؟|يثرب|بکه|قبا|نجد
+محمد ص په کوم ميلادي کال مدينې ته هجرت وکړ؟|۶۲۲|۶۱۰|۶۳۲|۵۷۰
+په هجرت کې د محمد ص ملګری څوک و؟|ابوبکر صديق|عمر|علي|عثمان
+د هجرت په شپه د محمد ص په بستر څوک وغځېد؟|علي رض|زبير|بلال|عمار
+محمد ص او ابوبکر رض په کوم غار کې پټ شول؟|ثور|حراء|احد|قبا
+په اسلام کې لومړی جوړ شوی مسجد کوم دی؟|مسجد قبا|مسجد نبوي|مسجد اقصى|مسجد الحرام
+محمد ص مدينې ته په رسېدو کوم صحابي ته مېلمه شو؟|ابو ايوب انصاري|سعد بن معاذ|ابوبکر|عمر
+د مهاجرو او انصارو ترمنځ ورورګلوي ته څه ويل کېږي؟|مؤاخات|بيعت|غزوه|خلافت
+د اسلام لومړی مؤذن څوک و؟|بلال حبشي|عمر|ابوبکر|علي
+هجري کلېز د چا په وخت کې پيل شو؟|عمر رض|ابوبکر رض|عثمان رض|علي رض
+د اسلام لومړۍ لويه جګړه کومه وه؟|بدر|احد|خندق|حنين
+د بدر جګړه په کوم هجري کال وشوه؟|دوهم|لومړی|څلورم|شپږم
+په بدر کې د مسلمانانو شمېر څومره و؟|نږدې ۳۱۳|۱۰۰۰|۳۰۰۰|۷۰۰
+په بدر کې د مشرکينو شمېر څومره و؟|نږدې ۱۰۰۰|۳۰۰|۵۰۰۰|۳۰۰۰۰
+په بدر کې د مشرکينو کوم مشر ووژل شو؟|ابوجهل|ابوسفيان|ابولهب|عتبه
+د احد جګړه په کوم هجري کال وشوه؟|دريم|دوهم|پنځم|اووم
+په احد کې په غونډۍ کوم کسان ودرول شول؟|تيراندازان|سپاره|پيادګان|ډاکټران
+په کومه جګړه کې محمد ص ټپي شو او غاښ يې مات شو؟|احد|بدر|حنين|تبوک
+په احد کې کوم تره شهيد شو؟|حمزه|عباس|ابوطالب|ابولهب
+د خندق د کيندلو مشوره چا ورکړه؟|سلمان فارسي|ابوذر|بلال|صهيب
+د خندق جګړه په کوم هجري کال وشوه؟|پنځم|دريم|اووم|نهم
+د خندق جګړې بل نوم څه دی؟|غزوه احزاب|غزوه بدر|غزوه موته|ذات الرقاع
+د حديبيې صلح په کوم هجري کال وشو؟|شپږم|څلورم|اتم|لسم
+بيعت رضوان چېرته وشو؟|حديبيه|بدر|احد|تبوک
+د خيبر غزوه په کوم هجري کال وشوه؟|اووم|دريم|نهم|لسم
+د خيبر په ورځ بيرغ چا ته ورکړل شو؟|علي بن ابي طالب|عمر|ابوبکر|عثمان
+د موتې جګړه د چا په وړاندې وه؟|روم|فارس|قريش|حبشه
+مکه په کوم هجري کال فتحه شوه؟|اتم|شپږم|لسم|دريم
+په فتحه مکه کې محمد ص له قريشو سره څه وکړل؟|عام عفو يې وکړه|ټول يې ووژل|بند يې کړل|ويستل يې
+د حنين جګړه د کومې قبيلې په وړاندې وه؟|هوازن|قريش|يهود|غطفان
+د تبوک غزوه په کوم هجري کال وشوه؟|نهم|اتم|لسم|شپږم
+د عمرة القضاء په کوم هجري کال وشوه؟|اووم|شپږم|اتم|نهم
+حجة الوداع په کوم هجري کال وشوه؟|لسم|نهم|اتم|يوولسم
+د حجة الوداع مشهوره خطبه په کوم ځای کې وشوه؟|عرفات|مني|مکه|مدينه
+محمد ص په کوم هجري کال وفات شو؟|يوولسم|لسم|دولسم|نهم
+محمد ص په څو کلنۍ وفات شو؟|۶۳ کلنۍ|۶۰ کلنۍ|۷۰ کلنۍ|۵۵ کلنۍ
+محمد ص په کوم ښار کې دفن دی؟|مدينه منوره|مکه|طايف|بيت المقدس
+د محمد ص د ځوی ابراهيم مور څوک وه؟|ماريه قبطيه|خديجه|عايشه|حفصه
+د محمد ص د لورګانو شمېر څو و؟|څلور|دوه|درې|پنځه
+د فاطمې رض مېړه څوک و؟|علي رض|عثمان|عمر|ابوبکر
+د حسن بن علي رض ورور څوک و؟|حسين|عباس|جعفر|عبدالله
+د عايشې رض پلار څوک و؟|ابوبکر صديق|عمر|ابوسفيان|علي
+د حفصې رض پلار څوک و؟|عمر بن خطاب|عثمان|علي|ابوبکر
+د رسول الله ص مېرمنې په کوم لقب يادېږي؟|امهات المؤمنين|حواري|انصار|مهاجرين
+د ابوسفيان لور او د رسول الله ص مېرمن څوک وه؟|ام حبيبه|سوده|زينب|جويريه
+د رسول الله ص د مشهورې اوښې نوم څه و؟|قصواء|دلدل|براق|يعفور
+دلدل د رسول الله ص کوم حيوان و؟|خچره|اس|اوښ|خر
+د خالد بن وليد رض لقب څه و؟|سيف الله|اسد الله|فاروق|صديق
+عثمان بن عفان رض په کوم لقب مشهور دی؟|ذوالنورين|فاروق|اسد الله|امين الامة
+د ابوعبيده بن جراح رض لقب څه و؟|امين الامة|فاروق|صديق|سيف الله
+د رسول الله ص ړوند مؤذن څوک و؟|ابن ام مکتوم|بلال|عمار|سلمان
+عشره مبشره څو تنه دي؟|لس|اووه|دولس|پنځه
+د رسول الله ص مشهور کاتب وحي څوک و؟|زيد بن ثابت|ابوهريره|بلال|سلمان
+ډېر احاديث کوم صحابي روايت کړي دي؟|ابوهريره|ابوبکر|بلال|عمر
+قرآن په کومه مياشت کې نازل شو؟|رمضان|شوال|ذوالحجه|محرم
+د قرآن د نزول مودې څو کاله وه؟|۲۳ کاله|۱۰ کاله|۴۰ کاله|۳۰ کاله
+محمد ص څو کاله په مکه کې د نبوت ژوند تېر کړ؟|۱۳ کاله|۱۰ کاله|۲۳ کاله|۸ کاله
+محمد ص څو کاله په مدينه کې ژوند وکړ؟|۱۰ کاله|۱۳ کاله|۵ کاله|۲۳ کاله
+د مسلمانانو لومړۍ قبله کومه وه؟|بيت المقدس|کعبه|مسجد نبوي|قبا
+د محمد ص بل نوم کوم دی؟|احمد|يحيى|موسى|يوسف
+د اسلام ارکان څو دي؟|پنځه|څلور|شپږ|اووه
+د محمد ص د نيکه عبدالمطلب بل نوم څه و؟|شيبة الحمد|هاشم|قصي|کلاب
+د ابوطالب اصلي نوم څه و؟|عبد مناف|عبدالله|عبدالمطلب|ابوالقاسم
+د محمد ص د قبيلې نوم څه و؟|قريش|هوازن|ثقيف|غطفان
+د ابرهې او د فيل د لښکر کيسه په کوم سورت کې راغلې ده؟|الفيل|قريش|الماعون|الهمزه
+د محمد ص پلار کله وفات شو؟|له زېږېدو مخکې|په دوه کلنۍ کې|په شپږ کلنۍ کې|په لس کلنۍ کې
+د محمد ص د لومړي ځوی نوم څه و؟|قاسم|ابراهيم|عبدالله|طاهر
+د محمد ص مشره لور څوک وه؟|زينب|رقيه|فاطمه|ام کلثوم
+په کوم د نبوت کال حبشې ته لومړی هجرت وشو؟|پنځم|لومړی|دولسم|لسم
+د عمر رض د اسلام په ورځ کوم سورت لوستل کېده؟|طه|يس|الرحمن|الکهف
+د اسلام په پيل کې د دعوت او زده کړې مرکز کوم و؟|دار الارقم|دار الندوه|کعبه|شعب ابي طالب
+د قريشو د مشورې ځای څه نومېده؟|دار الندوه|دار الارقم|صفا|حرم
+په کعبه کې کوم لوی بت و؟|هبل|ابوجهل|ام جميل|وحشي
+د اسراء او معراج په شپه محمد ص په کوم سورلۍ سور و؟|براق|قصواء|دلدل|يعفور
+د عقبې په دويم بيعت کې د مدينې څو نارينه حاضر وو؟|۷۳|۱۲|۱۰۰|۳۰
+مدينې ته د لومړي معلم په توګه کوم صحابي ولېږل شو؟|مصعب بن عمير|زيد بن حارثه|علي|بلال
+د هجرت په وخت کې چا د محمد ص تعقيب کاوه؟|سراقه بن مالک|ابوجهل|عتبه|عکرمه
+محمد ص او ابوبکر رض په ثور غار کې څو شپې پاتې شول؟|درې شپې|يوه شپه|اووه شپې|لس شپې
+د مدينې د يهودو او مسلمانانو لومړنی ليکلی تړون کوم و؟|صحيفة المدينة|حديبيه|عقبه|حلف الفضول
+د قبلې بدلون په کوم هجري کال وشو؟|دوهم|لومړی|دريم|څلورم
+د روژې فرضيت په کوم هجري کال شو؟|دوهم|لومړی|څلورم|شپږم
+د بدر جګړې په هکله کوم سورت نازل شو؟|الانفال|البقره|الفتح|التوبه
+د خندق په جګړه کې د عمرو بن عبدود سره چا مبارزه وکړه؟|علي رض|حمزه|زبير|خالد
+د حديبيې د صلحې په هکله کوم سورت نازل شو؟|الفتح|النصر|الفيل|الکوثر
+د حديبيې په صلحه کې د مشرکينو استازی څوک و؟|سهيل بن عمرو|ابوجهل|عتبه|عکرمه
+کوم پاچا د رسول الله ص ليک ټوټه ټوټه کړ؟|کسرى|هرقل|نجاشي|مقوقس
+هرقل د کومې امپراتورۍ مشر و؟|روم|فارس|حبشه|مصر
+د فتحه مکې په ورځ د کعبې کليدونه چا ته وسپارل شول؟|عثمان بن طلحه|ابوبکر|عمر|علي
+په فتحه مکه کې د مسلمانانو لښکر څومره و؟|لس زره|درې سوه|دوه زره|شپېته زره
+د فتحې او نصرت زېری په کوم سورت کې دی؟|النصر|الکوثر|الاخلاص|الفلق
+د محمد ص په وروستيو ورځو کې په لمانځه کې امامت چا کاوه؟|ابوبکر صديق|عمر|علي|عثمان
+محمد ص په کومه مياشت کې وفات شو؟|ربيع الاول|رمضان|محرم|رجب
+د محمد ص وروسته لومړی خليفه څوک شو؟|ابوبکر صديق|عمر|عثمان|علي
+د خلفاې راشدينو په ترتيب کې دريم څوک و؟|عثمان بن عفان|علي|عمر|ابوبکر
+د رسول الله ص هغه مېرمنه چې يهودي وه او مسلمانه شوه؟|صفيه|حفصه|زينب|سوده
+کومه مېرمنه د «ام المساکين» په لقب مشهوره وه؟|زينب بنت خزيمه|سوده|عايشه|ام سلمه
+د عايشې رض لقب څه و؟|صديقه|فاطمه|زهراء|بتول
+د فاطمې رض لقب څه و؟|زهراء|صديقه|امين|طيبه
+عباس بن عبدالمطلب رض د رسول الله ص څه و؟|تره|نيکه|ورور|ماما
+د ابوبکر رض لقب څه و؟|صديق|فاروق|ذوالنورين|سيف الله
+اسامه بن زيد رض د چا ځوی و؟|زيد بن حارثه|بلال|عمار|ابوبکر
+جعفر رض د حبشې په دربار کې د نجاشي مخکې کوم سورت ولوست؟|مريم|يوسف|الکهف|البقره
+قرآن د محمد ص د اخلاقو په هکله په کوم سورت کې شاهدي ورکوي؟|القلم|الحجرات|الفتح|يس
+د ابولهب د مېرمنې نوم څه و؟|ام جميل|ام حبيبه|ام سلمه|ام ايمن
+د علي رض مور څوک وه؟|فاطمه بنت اسد|آمنه|خديجه|سميه
+د حمزه رض قاتل څوک و؟|وحشي|ابوجهل|عتبه|عمرو
+په احد کې د مشرکينو مشر څوک و؟|ابوسفيان|ابوجهل|ابولهب|عتبه
+د احد غر په کوم ښار کې دی؟|مدينه|مکه|طايف|تبوک
+غار حراء په کوم غر کې دی؟|جبل نور|احد|ثور|عرفات
+د فتحه مکې په ورځ د کعبې پر بام اذان چا وکړ؟|بلال|عمر|ابوبکر|علي
+د رسول الله ص مشهور خادم څوک و؟|انس بن مالک|ابوهريره|بلال|سلمان`;
+const Q=RAW.trim().split("\n").map(l=>{const p=l.split("|");return{q:p[0],a:p[1],o:p.slice(1)}});
+const $=id=>document.getElementById(id);
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const happy=["🎉 ماشاءالله! سم ځواب دی","🌟 ډېر ښه! ستاسو ځواب سم دی","😍 آفرين! همداسې دوام ورکړه","🥳 بيخي سم! شاباس","💎 ځواڼ! الماس مو وګټل"];
+const sad=["😔 ناسم ځواب، سم ځواب په شين رنګ ښودل شوی","🙁 هيڅ ستونزه نشته، سم ځواب وګوره","😢 ناسم دی، بيا هڅه کوه"];
+const L="ابجد",views=["login","home","game","end","fav","about"];
+let set=[],i=0,score=0,locked=false,ctx,user="",favs=[],best=null;
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const pd=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
+function beep(ok){try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();const n=ok?[523,659,784]:[220,170];n.forEach((f,k)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=f;o.type=ok?"sine":"triangle";g.gain.setValueAtTime(.15,ctx.currentTime+k*.12);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+k*.12+.25);o.connect(g);g.connect(ctx.destination);o.start(ctx.currentTime+k*.12);o.stop(ctx.currentTime+k*.12+.26)})}catch(e){}}
+function confetti(){const e=["🎉","⭐","💎","✨","🎊","💜"];for(let k=0;k<34;k++){const s=document.createElement("span");s.className="fx";s.textContent=e[k%e.length];s.style.left=Math.random()*100+"vw";s.style.animationDuration=(1.6+Math.random()*1.6)+"s";s.style.animationDelay=Math.random()*.4+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),3800)}}
+function show(id){views.forEach(x=>$(x).classList.toggle("hide",x!==id));
+  $("nav").classList.toggle("hide",!["home","fav","about"].includes(id));
+  document.querySelectorAll(".nav button[data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v===id));
+  if(id==="fav")renderFav();window.scrollTo(0,0)}
+function saveFavs(){ls.set("seerahFav_"+user,JSON.stringify(favs));$("fcount").textContent=pd(favs.length);$("fcount").style.display=favs.length?"grid":"none"}
+function toggleFav(q){const k=favs.indexOf(q);k>=0?favs.splice(k,1):favs.push(q);saveFavs();return k<0}
+function renderFav(){const box=$("favlist");box.innerHTML="";const list=Q.filter(x=>favs.includes(x.q));
+  $("favEmpty").classList.toggle("hide",list.length>0);$("favStart").classList.toggle("hide",!list.length);
+  list.forEach(c=>{const d=document.createElement("div");d.className="fv";const q=document.createElement("p");q.textContent=c.q;const a=document.createElement("div");a.className="fa";a.textContent="✅ "+c.a;const r=document.createElement("button");r.className="rm";r.textContent="🗑 لرې کړه";r.onclick=()=>{toggleFav(c.q);renderFav()};d.append(q,a,r);box.appendChild(d)})}
+function start(n,list){set=sh(list||Q).slice(0,Math.min(n,(list||Q).length));i=0;score=0;show("game");render()}
+function render(){locked=false;const c=set[i];$("cnt").textContent=pd(i+1)+" / "+pd(set.length);$("sc").textContent=pd(score*10);$("pb").style.width=(i/set.length*100)+"%";$("q").textContent=c.q;$("msg").textContent="";$("next").style.display="none";
+  $("star").textContent=favs.includes(c.q)?"⭐":"☆";
+  const box=$("opts");box.innerHTML="";sh(c.o).forEach((t,k)=>{const b=document.createElement("button");b.className="opt";b.innerHTML="<b>"+L[k]+"</b><span></span>";b.lastChild.textContent=t;b.onclick=()=>pick(b,t===c.a);b.dataset.c=t===c.a?1:0;box.appendChild(b)})}
+function pick(b,ok){if(locked)return;locked=true;document.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.dataset.c==="1")x.classList.add("ok")});
+  if(ok){score++;$("msg").style.color="var(--ok)";$("msg").textContent=happy[Math.floor(Math.random()*happy.length)];confetti();beep(true)}
+  else{b.classList.add("bad");$("msg").style.color="var(--bad)";$("msg").textContent=sad[Math.floor(Math.random()*sad.length)];beep(false)}
+  $("sc").textContent=pd(score*10);$("pb").style.width=((i+1)/set.length*100)+"%";const n=$("next");n.textContent=i+1<set.length?"بله پوښتنه ←":"پايله وګوره 🏆";n.style.display="block"}
+function finish(){show("end");const p=Math.round(score/set.length*100);$("fs").textContent=pd(score)+" / "+pd(set.length);
+  $("em").textContent=p>=80?"🏆":p>=50?"😊":"📚";$("tt").textContent=p>=80?"ډېر ښه! ستاسو سيرت پوهه عالي ده":p>=50?"ښه هڅه! لږ نور زده کړه":"بيا هڅه وکړه، سيرت ولولئ";
+  $("det").textContent="سلنه: "+pd(p)+"٪ — الماس: 💎 "+pd(score*10);if(p>=50)confetti();
+  if(best===null||p>+best){best=p;ls.set("seerahBest_"+user,p);$("best").textContent=pd(p)+"٪"}}
+function enter(name){user=name;ls.set("seerahUser",name);$("hi").textContent="👋 ښه راغلاست، "+name;
+  try{favs=JSON.parse(ls.get("seerahFav_"+user)||"[]")}catch(e){favs=[]}
+  best=ls.get("seerahBest_"+user);$("best").textContent=best!==null?pd(best)+"٪":"—";saveFavs();show("home")}
+function login(){const v=$("uname").value.trim();if(!v){$("lerr").textContent="مهرباني وکړئ خپل نوم ولیکئ";return}$("lerr").textContent="";enter(v)}
+$("loginBtn").onclick=login;$("uname").onkeydown=e=>{if(e.key==="Enter")login()};
+$("logout").onclick=()=>{ls.del("seerahUser");user="";$("uname").value="";show("login")};
+$("exit").onclick=()=>show("home");
+$("star").onclick=()=>{$("star").textContent=toggleFav(set[i].q)?"⭐":"☆"};
+$("next").onclick=()=>{i++;i<set.length?render():finish()};
+$("again").onclick=()=>show("home");
+$("favStart").onclick=()=>start(999,Q.filter(x=>favs.includes(x.q)));
+document.querySelectorAll("[data-n]").forEach(b=>b.onclick=()=>start(+b.dataset.n));
+document.querySelectorAll(".nav button[data-v]").forEach(b=>b.onclick=()=>show(b.dataset.v));
+$("qn").textContent=pd(Q.length);$("allN").textContent=pd(Q.length)+" پوښتنې";
+const u=ls.get("seerahUser");u?enter(u):show("login");
+</script>
+</body>
+</html>
